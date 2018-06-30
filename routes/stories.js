@@ -161,7 +161,7 @@ router.post('/comment/:id', (req, res) => {
     }
 
     // Add to comments array
-    story.comments.shift(newComment);
+    story.comments.push(newComment);
 
     story.save()
       .then(story => {
