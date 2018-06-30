@@ -17,7 +17,10 @@ footer{
   margin-top:20px;
 }
 
-
+.logo-img {
+  max-height: 64px !important;
+  padding: 15px 0 !important;
+}
 
 .dash-status{
   text-transform: capitalize;
