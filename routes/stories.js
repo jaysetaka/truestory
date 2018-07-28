@@ -56,6 +56,26 @@ router.get('/user/:userId', (req, res) => {
     });
 });
 
+// @route   GET api/profile/all
+// @desc    Get all profiles
+// @access  Public
+router.get('/all', (req, res) => {
+  const errors = {};
+
+  Profile.find()
+    .populate('user')
+    .then(users => {
+      if (!users) {
+        errors.nouser = 'There are no users';
+        return res.status(404).json(errors);
+      }
+
+      res.json(users);
+    })
+    .catch(err => res.status(404).json({ user: 'There are no users' }));
+});
+
+
 // Logged in users stories
 router.get('/my', ensureAuthenticated, (req, res) => {
   Story.find({user: req.user.id})
