@@ -1,34 +1,47 @@
-<h1>Welcome {{user.firstName}}</h1>
-<h4>Your Stories</h4>
+<div class="row" style="margin-top: 10px !important;">
+  <div class="col s12 m6">
+    <div class="card light-blue darken-4">
+      <div class="card-content white-text">
+        <span class="card-title">Welcome {{user.firstName}}</span>
+        <p>Welcome to your dashboard, view all your stories below</p>
+      </div>
+    </div>
+  </div>
+</div>
 {{#if stories}}
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Status</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each stories}}
-        <tr>
-          <td><a href="/stories/show/{{id}}">{{title}}</a></td>
-          <td>{{formatDate data 'MMMM do YYYY'}}</td>
-          <td><span class="dash-status">{{status}}</span></td>
-          <td>
-            <a class="btn left-align" href="/stories/edit/{{id}}"><i class="fa fa-pencil"></i></a>
+    {{#each stories}}
+    <div class="row">
+      <div class="col" style="width:65rem">
+        <div class="card-panel">
+          <span>Title{{title}}</span>
+          <p class="story-text">
+            {{stripTags (truncate body)}}
+          </p>
+          <a class="btn left-align" href="/stories/edit/{{id}}"><i class="fa fa-pencil"></i></a>
+          
+          <form action="/stories/{{id}}?_method=DELETE" method="post" id="delete-form">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" class="btn red"><i class="fa fa-remove"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    {{!-- <tr>
+      <td><a href="/stories/show/{{id}}">{{title}}</a></td>
+      <td><span class="dash-status">{{status}}</span></td>
+      <td>
+        <a class="btn left-align" href="/stories/edit/{{id}}"><i class="fa fa-pencil"></i></a>
 
-            <form action="/stories/{{id}}?_method=DELETE" method="post" id="delete-form">
-              <input type="hidden" name="_method" value="DELETE">
-              <button type="submit" class="btn red"><i class="fa fa-remove"></i></button>
-            </form>
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
+        <form action="/stories/{{id}}?_method=DELETE" method="post" id="delete-form">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn red"><i class="fa fa-remove"></i></button>
+        </form>
+      </td>
+    </tr> --}}
+    {{/each}}
+  </tbody>
+</table>
 {{else}}
-  <p>You have not created any stories yet</p>
-  <a class="btn red darken-1" href="/stories/add"><i class="fa fa-book left"></i>Create Story Here</a>
+<p>You have not created any stories yet</p>
+<a class="btn red darken-1" href="/stories/add"><i class="fa fa-book left"></i>Create Story Here</a>
 {{/if}}
